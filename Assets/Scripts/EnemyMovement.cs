@@ -11,8 +11,7 @@ public class EnemyMovement : MonoBehaviour
     private int moveRight = -1;
     private Vector2 velocity;
     private Rigidbody2D enemyBody;
-
-    public Vector3 startPosition = new Vector3(-31.148f, -1.102f, 0.0f);
+    public Animator enemyAnimator;
 
     void Start()
     {
@@ -33,10 +32,11 @@ public class EnemyMovement : MonoBehaviour
     // note that this is Update(), which still works but not ideal. See below.
     // void Update()
     // {
-        
+
     // }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         if (Mathf.Abs(enemyBody.position.x - originalX) < maxOffset)
         {// move goomba
             Movegoomba();
@@ -53,5 +53,20 @@ public class EnemyMovement : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.gameObject.name);
+    }
+
+    public void EnemyDefeated()
+    {
+        // disable collider
+        GetComponent<Collider2D>().enabled = false;
+        Debug.Log("Goomba defeated!");
+        enemyAnimator.Play("goombaSquash");
+        velocity = Vector2.zero;
+    }
+
+    public void EnemyDefeatedComplete()
+    {
+        Debug.Log("Goomba defeated animation complete!");
+        Destroy(gameObject);
     }
 }
