@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     [System.NonSerialized]
     public bool alive = true;
 
-    void Awake()
+    public void Awake()
     {
         // Cache components early
         marioBody = GetComponent<Rigidbody2D>();
@@ -42,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (marioActions == null)
             marioActions = new MarioActions();
+
+        GameManager.instance.gameRestart.AddListener(GameRestart);
     }
 
     // Start is called before the first frame update
@@ -56,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
         marioActions.gameplay.click.performed += OnClickAction;
         marioActions.gameplay.click.canceled += OnClickAction;
         marioActions.gameplay.point.performed += OnPointAction;
+
+        // SceneManager.activeSceneChanged += SetStartingPosition;
 
         marioAnimator.SetBool("onGround", onGroundState);
     }
@@ -218,6 +223,14 @@ public class PlayerMovement : MonoBehaviour
         alive = false;
         marioAnimator.Play("mario-die");
         marioDeath.PlayOneShot(marioDeath.clip);
+    }
+    public void SetStartingPosition(Scene current, Scene next)
+    {
+        if (next.name == "World 1-2")
+        {
+            // change the position accordingly in your World-1-2 case
+            this.transform.position = new Vector3(-7.892819f, -2.433819f, 0.0f);
+        }
     }
 
 }

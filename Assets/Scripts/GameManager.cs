@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+
+public class GameManager : Singleton<GameManager>
 {
     // events
     public UnityEvent gameStart;
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour
     {
         gameStart.Invoke();
         Time.timeScale = 1.0f;
+        SceneManager.activeSceneChanged += SceneSetup;
     }
 
     // Update is called once per frame
@@ -28,7 +31,10 @@ public class GameManager : MonoBehaviour
 
     public void GameRestart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameStart.Invoke();
+        SceneManager.LoadScene("0");
+        score = 0;
+        Time.timeScale = 1.0f;
     }
 
     public void IncreaseScore(int increment)
@@ -47,5 +53,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         gameOver.Invoke();
+    }
+
+    public void SceneSetup(Scene current, Scene next)
+    {
+        // gameStart.Invoke();
+        SetScore(score);
     }
 }

@@ -61,6 +61,7 @@ public class EnemyMovement : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         Debug.Log("Goomba defeated!");
         enemyAnimator.Play("goombaSquash");
+        GameManager.instance.IncreaseScore(1);
         velocity = Vector2.zero;
     }
 

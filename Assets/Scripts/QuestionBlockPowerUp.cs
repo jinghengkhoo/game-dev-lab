@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestionBlock : MonoBehaviour
+public class QuestionBlockPowerUp : MonoBehaviour
 {
     [System.NonSerialized]
     public bool alive = true;
 
     public Animator questionblockAnimator;
-    public Animator coinAnimator;
+    public Animator powerupAnimator;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -17,8 +17,7 @@ public class QuestionBlock : MonoBehaviour
         {
             alive = false;
             questionblockAnimator.Play("hit");
-            coinAnimator.Play("coin");
-            GameManager.instance.IncreaseScore(1);
+            powerupAnimator.Play("start");
         }
 
     }
