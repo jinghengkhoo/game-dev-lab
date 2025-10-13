@@ -13,6 +13,8 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D enemyBody;
     public Animator enemyAnimator;
 
+    public AudioSource goombaAudio;
+
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
@@ -61,6 +63,7 @@ public class EnemyMovement : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         Debug.Log("Goomba defeated!");
         enemyAnimator.Play("goombaSquash");
+        goombaAudio.Play();
         GameManager.instance.IncreaseScore(1);
         velocity = Vector2.zero;
     }

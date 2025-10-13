@@ -17,7 +17,7 @@ public class MarioFeet : MonoBehaviour
             if (marioFeetY > enemyTopY)
             {
                 Debug.Log("Enemy stomped!");
-                marioBody.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                marioBody.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
                 other.gameObject.GetComponent<EnemyMovement>().EnemyDefeated();
             }
         }
