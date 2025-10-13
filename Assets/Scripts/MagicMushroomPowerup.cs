@@ -19,6 +19,8 @@ public class MagicMushroomPowerup : BasePowerup
         {
             // TODO: do something when colliding with Player
 
+            col.gameObject.GetComponent<PlayerMovement>().Grow();
+
             // then destroy powerup (optional)
             DestroyPowerup();
 

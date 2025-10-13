@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 
 public class GameManager : Singleton<GameManager>
@@ -13,8 +12,9 @@ public class GameManager : Singleton<GameManager>
     public UnityEvent gameRestart;
     public UnityEvent<int> scoreChange;
     public UnityEvent gameOver;
+    public IntVariable gameScore;
 
-    private int score = 0;
+    // private int score = 0;
 
     void Start()
     {
@@ -33,21 +33,22 @@ public class GameManager : Singleton<GameManager>
     {
         gameStart.Invoke();
         SceneManager.LoadScene("0");
-        score = 0;
+        gameScore.Value = 0;
         Time.timeScale = 1.0f;
     }
 
     public void IncreaseScore(int increment)
     {
-        score += increment;
-        SetScore(score);
+        Debug.Log("Increasing score by " + increment);
+        gameScore.ApplyChange(increment);
+        Debug.Log("Score: " + gameScore.Value);
+        SetScore(gameScore.Value);
     }
 
     public void SetScore(int score)
     {
         scoreChange.Invoke(score);
     }
-
 
     public void GameOver()
     {
@@ -58,6 +59,6 @@ public class GameManager : Singleton<GameManager>
     public void SceneSetup(Scene current, Scene next)
     {
         // gameStart.Invoke();
-        SetScore(score);
+        SetScore(gameScore.Value);
     }
 }

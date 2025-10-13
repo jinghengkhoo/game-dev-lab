@@ -10,25 +10,24 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    public GameConstants gameConstants;
+    float deathImpulse;
+    float upSpeed;
+    float maxSpeed;
+    float speed;
     // global variables
-    public float speed = 10;
     private Rigidbody2D marioBody;
     private SpriteRenderer marioSprite;
     private bool faceRightState = true;
 
     public Animator marioAnimator;
-
-    public float upSpeed = 10;
     private bool onGroundState = true;
 
     public AudioSource marioAudio;
 
     public AudioSource marioDeath;
-    public float deathImpulse = 15;
 
     public MarioActions marioActions;
-
-    public UnityEvent gameOver;
 
     // state
     [System.NonSerialized]
@@ -50,6 +49,14 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set constants
+        speed = gameConstants.speed;
+        maxSpeed = gameConstants.maxSpeed;
+        deathImpulse = gameConstants.deathImpulse;
+        upSpeed = gameConstants.upSpeed;
+
+        alive = true;
+
         marioActions.gameplay.Enable();
         marioActions.gameplay.jump.performed += OnJump;
         marioActions.gameplay.jumphold.performed += OnJumpHoldPerformed;
@@ -99,8 +106,6 @@ public class PlayerMovement : MonoBehaviour
             marioAnimator.SetBool("onGround", onGroundState);
         }
     }
-
-    public float maxSpeed = 20;
     private bool moving = false;
 
     // FixedUpdate may be called once per frame. See documentation for details.
@@ -125,13 +130,7 @@ public class PlayerMovement : MonoBehaviour
         // reset animation
         marioAnimator.SetTrigger("gameRestart");
         alive = true;
-    }
-
-    public void RestartButtonCallback(int input)
-    {
-        Debug.Log("Restart!");
-        // resume time
-        Time.timeScale = 1.0f;
+        Debug.Log("Game Restarted");
     }
 
     void PlayJumpSound()
@@ -215,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void GameOverScene()
     {
-        gameOver.Invoke();
+        GameManager.instance.GameOver();
     }
 
     public void OnDie()
@@ -231,6 +230,17 @@ public class PlayerMovement : MonoBehaviour
             // change the position accordingly in your World-1-2 case
             this.transform.position = new Vector3(-7.892819f, -2.433819f, 0.0f);
         }
+    }
+
+    public void Grow()
+    {
+        marioAnimator.SetTrigger("grow");
+    }
+
+    public void GrowDone()
+    {
+        marioAnimator.Play("mario-idle", 0, 0f);
+        marioBody.transform.localScale = new Vector3(2f, 2f, 1.0f);
     }
 
 }

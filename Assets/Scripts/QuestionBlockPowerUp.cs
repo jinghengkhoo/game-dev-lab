@@ -10,12 +10,15 @@ public class QuestionBlockPowerUp : MonoBehaviour
     public Animator questionblockAnimator;
     public Animator powerupAnimator;
 
+    public GameObject powerup;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collided with block!");
         if (alive && other.gameObject.CompareTag("Player"))
         {
             alive = false;
+            powerup.SetActive(true);
             questionblockAnimator.Play("hit");
             powerupAnimator.Play("start");
         }

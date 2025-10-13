@@ -311,6 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestionBlockPowerUp
   questionblockAnimator: {fileID: 6850597506522468336}
   powerupAnimator: {fileID: 3467756548985305356}
+  powerup: {fileID: 7276838279197148130}
 --- !u!1 &6090901194011488311
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3411629679849470430
 Transform:
   m_ObjectHideFlags: 0

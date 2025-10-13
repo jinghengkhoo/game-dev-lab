@@ -19,6 +19,7 @@ public class BrickCoin : MonoBehaviour
             {
                 alive = false;
                 coinAnimator.Play("coin");
+                Debug.Log("Coin collected!");
                 GameManager.instance.IncreaseScore(1);
             }
         }

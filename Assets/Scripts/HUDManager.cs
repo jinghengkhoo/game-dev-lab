@@ -9,6 +9,8 @@ public class HUDManager : MonoBehaviour
     public GameObject mainPanel;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverScoreText;
+    public GameObject highscoreText;
+    public IntVariable gameScore;
     void Awake()
     {
         GameManager.instance.gameStart.AddListener(GameStart);
@@ -43,9 +45,15 @@ public class HUDManager : MonoBehaviour
 
     public void GameOver()
     {
+        Debug.Log("Game Over in HUDManager");
         // stop time
         Time.timeScale = 0.0f;
         mainPanel.SetActive(false);
         gameOverPanel.SetActive(true);
+
+        // set highscore
+        highscoreText.GetComponent<TextMeshProUGUI>().text = "TOP- " + gameScore.previousHighestValue.ToString("D6");
+        // show
+        highscoreText.SetActive(true);
     }
 }
