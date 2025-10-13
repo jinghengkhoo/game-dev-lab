@@ -988,8 +988,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadAndWait, Assembly-CSharp
+      - m_Target: {fileID: 1717086581}
+        m_TargetAssemblyTypeName: BackToMainMenuButton, Assembly-CSharp
         m_MethodName: ReturnToMain
         m_Mode: 1
         m_Arguments:
@@ -3818,6 +3818,7 @@ GameObject:
   - component: {fileID: 1717086580}
   - component: {fileID: 1717086579}
   - component: {fileID: 1717086578}
+  - component: {fileID: 1717086581}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -3889,8 +3890,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LoadAndWait, Assembly-CSharp
+      - m_Target: {fileID: 1717086581}
+        m_TargetAssemblyTypeName: BackToMainMenuButton, Assembly-CSharp
         m_MethodName: ReturnToMain
         m_Mode: 1
         m_Arguments:
@@ -3939,6 +3940,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717086576}
   m_CullTransparentMesh: 1
+--- !u!114 &1717086581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717086576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b88efdc999157b4e98094e84927b10b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackToMainMenuButton
 --- !u!1 &1725830909
 GameObject:
   m_ObjectHideFlags: 0
