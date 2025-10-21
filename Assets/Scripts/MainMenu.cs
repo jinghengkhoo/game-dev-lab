@@ -2,12 +2,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 
 public class MainMenu : MonoBehaviour
 {
     public GameObject highScoreText;
 
     public IntVariable gameScore;
+    public UnityEvent onStartGame;
 
     void Start()
     {
@@ -17,6 +19,7 @@ public class MainMenu : MonoBehaviour
     public void GoToLoadScene()
     {
         Debug.Log("Loading scene...");
+        onStartGame.Invoke();
         SceneManager.LoadSceneAsync("LoadingScene", LoadSceneMode.Single);
     }
 

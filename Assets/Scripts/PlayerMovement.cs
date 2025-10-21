@@ -29,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
 
     public MarioActions marioActions;
 
+    public UnityEvent onPlayerDeath;
+    public BoolVariable marioFaceRight;
+
+    public AudioSource powerupSound;
+
     // state
     [System.NonSerialized]
     public bool alive = true;
@@ -42,8 +47,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (marioActions == null)
             marioActions = new MarioActions();
-
-        GameManager.instance.gameRestart.AddListener(GameRestart);
     }
 
     // Start is called before the first frame update
@@ -62,10 +65,10 @@ public class PlayerMovement : MonoBehaviour
         marioActions.gameplay.jumphold.performed += OnJumpHoldPerformed;
         marioActions.gameplay.move.started += OnMove;
         marioActions.gameplay.move.canceled += OnMove;
-        marioActions.gameplay.click.started += OnClickAction;
-        marioActions.gameplay.click.performed += OnClickAction;
-        marioActions.gameplay.click.canceled += OnClickAction;
-        marioActions.gameplay.point.performed += OnPointAction;
+        // marioActions.gameplay.click.started += OnClickAction;
+        // marioActions.gameplay.click.performed += OnClickAction;
+        // marioActions.gameplay.click.canceled += OnClickAction;
+        // marioActions.gameplay.point.performed += OnPointAction;
 
         // SceneManager.activeSceneChanged += SetStartingPosition;
 
@@ -80,10 +83,10 @@ public class PlayerMovement : MonoBehaviour
             marioActions.gameplay.jumphold.performed -= OnJumpHoldPerformed;
             marioActions.gameplay.move.started -= OnMove;
             marioActions.gameplay.move.canceled -= OnMove;
-            marioActions.gameplay.click.started -= OnClickAction;
-            marioActions.gameplay.click.performed -= OnClickAction;
-            marioActions.gameplay.click.canceled -= OnClickAction;
-            marioActions.gameplay.point.performed -= OnPointAction;
+            // marioActions.gameplay.click.started -= OnClickAction;
+            // marioActions.gameplay.click.performed -= OnClickAction;
+            // marioActions.gameplay.click.canceled -= OnClickAction;
+            // marioActions.gameplay.point.performed -= OnPointAction;
 
             marioActions.gameplay.Disable();
         }
@@ -153,6 +156,11 @@ public class PlayerMovement : MonoBehaviour
             marioAnimator.SetBool("onGround", onGroundState);
         }
     }
+    private void updateMarioShouldFaceRight(bool value)
+    {
+        faceRightState = value;
+        marioFaceRight.SetValue(faceRightState);
+    }
 
     void OnMove(InputAction.CallbackContext context)
     {
@@ -164,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
             if (move > 0 && !faceRightState)
             {
                 faceRightState = true;
+                updateMarioShouldFaceRight(true);
                 marioSprite.flipX = false;
                 if (marioBody.linearVelocity.x < -0.1f)
                     marioAnimator.SetTrigger("onSkid");
@@ -171,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
             else if (move < 0 && faceRightState)
             {
                 faceRightState = false;
+                updateMarioShouldFaceRight(false);
                 marioSprite.flipX = true;
                 if (marioBody.linearVelocity.x > 0.1f)
                     marioAnimator.SetTrigger("onSkid");
@@ -214,7 +224,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void GameOverScene()
     {
-        GameManager.instance.GameOver();
+        OnDie();
+        onPlayerDeath.Invoke();
     }
 
     public void OnDie()
@@ -241,6 +252,10 @@ public class PlayerMovement : MonoBehaviour
     {
         marioAnimator.Play("mario-idle", 0, 0f);
         marioBody.transform.localScale = new Vector3(2f, 2f, 1.0f);
+    }
+    public void PowerupSound()
+    {
+        powerupSound.PlayOneShot(powerupSound.clip);
     }
 
 }

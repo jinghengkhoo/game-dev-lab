@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class HUDManager : MonoBehaviour
 {
@@ -13,10 +14,7 @@ public class HUDManager : MonoBehaviour
     public IntVariable gameScore;
     void Awake()
     {
-        GameManager.instance.gameStart.AddListener(GameStart);
-        GameManager.instance.gameRestart.AddListener(GameStart);
-        GameManager.instance.scoreChange.AddListener(SetScore);
-        GameManager.instance.gameOver.AddListener(GameOver);
+        SetScore(gameScore.Value);
     }
     // Start is called before the first frame update
     void Start()
@@ -31,9 +29,14 @@ public class HUDManager : MonoBehaviour
 
     public void GameStart()
     {
-        Time.timeScale = 0.0f;
+        Time.timeScale = 1.0f;
         mainPanel.SetActive(true);
         gameOverPanel.SetActive(false);
+    }
+
+    public void OnScoreUpdate()
+    {
+        SetScore(gameScore.Value);
     }
 
     public void SetScore(int score)

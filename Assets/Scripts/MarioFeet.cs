@@ -6,6 +6,7 @@ public class MarioFeet : MonoBehaviour
 {
     public Rigidbody2D marioBody;
     public PlayerMovement playerMovement;
+    public MarioStateController marioStateController;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -21,5 +22,19 @@ public class MarioFeet : MonoBehaviour
                 other.gameObject.GetComponent<EnemyMovement>().EnemyDefeated();
             }
         }
+    }
+
+    public void BigMario()
+    {
+        Vector3 pos = transform.localPosition;
+        pos.y = -0.49f;
+        transform.localPosition = pos;
+    }
+
+    public void SmallMario()
+    {
+        Vector3 pos = transform.localPosition;
+        pos.y = 0f;
+        transform.localPosition = pos;
     }
 }

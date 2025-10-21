@@ -15,4 +15,7 @@ public class GameConstants : ScriptableObject
     // Goomba's movement
     public float goombaPatrolTime;
     public float goombaMaxOffset;
+
+    // Mario State Controller
+    public float flickerInterval;
 }

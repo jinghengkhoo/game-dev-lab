@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BrickCoin : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class BrickCoin : MonoBehaviour
 
     public Animator brickAnimator;
     public Animator coinAnimator;
+    public UnityEvent onIncrementScore;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -20,7 +22,8 @@ public class BrickCoin : MonoBehaviour
                 alive = false;
                 coinAnimator.Play("coin");
                 Debug.Log("Coin collected!");
-                GameManager.instance.IncreaseScore(1);
+
+                onIncrementScore.Invoke();
             }
         }
 

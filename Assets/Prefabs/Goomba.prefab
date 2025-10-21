@@ -183,6 +183,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   enemyAnimator: {fileID: 3196196434959094308}
   goombaAudio: {fileID: 2037888293283507309}
+  onIncrementScore:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: f4b467fb00eb4b345884a21415177543, type: 2}
+        m_TargetAssemblyTypeName: IntGameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &190108560736585622
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1472,6 +1472,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   highScoreText: {fileID: 2058277836}
   gameScore: {fileID: 11400000, guid: 8c3a0c48aa7d90c4a898e5ff66ba46fc, type: 2}
+  onStartGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a300b32b496309b40894d98a3d9e0fe3, type: 2}
+        m_TargetAssemblyTypeName: SimpleGameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1809875244
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class EnemyMovement : MonoBehaviour
     private Vector2 velocity;
     private Rigidbody2D enemyBody;
     public Animator enemyAnimator;
-
     public AudioSource goombaAudio;
+    public UnityEvent onIncrementScore;
 
     void Start()
     {
@@ -55,6 +56,20 @@ public class EnemyMovement : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.gameObject.name);
+        if (other.gameObject.name == "FireBall(Clone)")
+        {
+            EnemyDefeated();
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.GetComponent<BuffStateController>())
+        {
+            BuffStateController buffStateController = other.gameObject.GetComponent<BuffStateController>();
+            if (buffStateController.currentState.name == "Starman")
+            {
+                EnemyDefeated();
+            }
+        }
     }
 
     public void EnemyDefeated()
@@ -64,7 +79,8 @@ public class EnemyMovement : MonoBehaviour
         Debug.Log("Goomba defeated!");
         enemyAnimator.Play("goombaSquash");
         goombaAudio.Play();
-        GameManager.instance.IncreaseScore(1);
+        onIncrementScore.Invoke();
+
         velocity = Vector2.zero;
     }
 

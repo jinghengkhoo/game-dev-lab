@@ -20,6 +20,7 @@ public class MagicMushroomPowerup : BasePowerup
             // TODO: do something when colliding with Player
 
             col.gameObject.GetComponent<PlayerMovement>().Grow();
+            col.gameObject.GetComponent<MarioStateController>().SetPowerup(this.powerupType);
 
             // then destroy powerup (optional)
             DestroyPowerup();
@@ -48,7 +49,5 @@ public class MagicMushroomPowerup : BasePowerup
     // interface implementation
     public override void ApplyPowerup(MonoBehaviour i)
     {
-        // TODO: do something with the object
-
     }
 }

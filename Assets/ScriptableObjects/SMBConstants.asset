@@ -19,3 +19,4 @@ MonoBehaviour:
   deathImpulse: 15
   goombaPatrolTime: 2
   goombaMaxOffset: 5
+  flickerInterval: 0.1

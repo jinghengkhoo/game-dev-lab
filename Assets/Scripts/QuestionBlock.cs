@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuestionBlock : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class QuestionBlock : MonoBehaviour
 
     public Animator questionblockAnimator;
     public Animator coinAnimator;
+    public UnityEvent onIncrementScore;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,7 +20,7 @@ public class QuestionBlock : MonoBehaviour
             alive = false;
             questionblockAnimator.Play("hit");
             coinAnimator.Play("coin");
-            GameManager.instance.IncreaseScore(1);
+            onIncrementScore.Invoke();
         }
 
     }
